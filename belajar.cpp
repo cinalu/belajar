@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char n1[1000000];
-char n2[1000000];
-char m1[1000000];
-char m2[1000000];
+char n1[1000005];
+char n2[1000005];
+char m1[1000005];
+char m2[1000005];
 
 int main(int argc, char const *argv[])
 {
