@@ -22,7 +22,6 @@ int main(int argc, char const *argv[])
 		if(n1[i]=='0' && overzero==false){}
 		else{
 			m1[index++]=n1[i];//not ok
-			m1[index]='\0';
 			overzero=true;
 		}
 	}
@@ -33,12 +32,16 @@ int main(int argc, char const *argv[])
 		if(n2[i]=='0' && overzero==false){}
 		else{
 			m2[index++]=n2[i];//not ok
-			m2[index]='\0';
 			overzero=true;
 		}
 	}	
-	
 
+
+	if(!overzero){
+		printf("=\n");
+		return 0;
+	}
+	
 	if(strlen(m1)<strlen(m2)){printf("<\n"); return 0;}
 	else if(strlen(m1)>strlen(m2)){printf(">\n"); return 0;}
 	else if(strlen(m1)==strlen(m2)){
