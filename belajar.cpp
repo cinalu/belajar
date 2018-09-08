@@ -1,63 +1,74 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-char n1[1000005];
-char n2[1000005];
-char m1[1000005];
-char m2[1000005];
-
+//note to self
+//8/9/18
+//tugas prd blm selesai, jgn koding dulu :(((
 int main(int argc, char const *argv[])
 {
+	int n;
+	int compartments[5]={0};
+	int ans=0;
 	
-	scanf("%s %s", &n1, &n2);
-	int len1=strlen(n1);
-	int len2=strlen(n2);
+	scanf("%d", &n);
+	for(int i=0; i<n; ++i){
+		int peeps;
+		scanf("%d", &peeps);
+		++compartments[peeps];
+	}
 	
-	bool overzero;
+	int c123=min(compartments[1], compartments[2]); //either 1+2 -> 3 or 2+1 ->3
+	compartments[3] += c123;
+	compartments[1] -= c123;
+	compartments[2] -= c123;
 	
-	int index=0;
+	//2-2 biar salah satu jadi 3
+	compartments[3] += 2*(compartments[2]/3);
+	int c223 = 2*(compartments[2]/3);
+	compartments[2] %= 3;
 	
-	overzero=false;
-	for(int i=0; i<len1; ++i){
-		if(n1[i]=='0' && overzero==false){}
-		else{
-			m1[index++]=n1[i];//not ok
-			overzero=true;
+	//1-1 ampe 3
+	compartments[3] += compartments[1]/3;
+	int c113 = 2*(compartments[1]/3);
+	compartments[1] %= 3;
+	
+	int c134=0;
+	int c112=0;
+	if(compartments[1]<=compartments[3]){
+		c134=compartments[1];
+		compartments[1]=0;
+	}else{
+		//1-1 jadi 2
+		compartments[2] += compartments[1]/2;
+		c112 = compartments[1]/2;
+		compartments[1] %= 2;
+	}
+	
+	int c413=0;
+	if(compartments[1]){
+		//4 - 1 jadi 3
+		if(compartments[4]>=2*compartments[1]){
+			c413 = 2*compartments[1];
+		}else{
+			ans=-1;
+			printf("%d\n", ans);
+			return 0;
 		}
 	}
 	
-	index=0;
-	overzero=false;
-	for(int i=0; i<len2; ++i){
-		if(n2[i]=='0' && overzero==false){}
-		else{
-			m2[index++]=n2[i];//not ok
-			overzero=true;
+	else if(compartments[2]){
+		if(compartments[2]==2) ans+=2;
+		else if(compartments[2]==1){
+			if(compartments[4]) ++ans;
+			else if(compartments[3]>=compartments[2]) ans += 2;
+			else{
+				ans=-1;
+				printf("%d\n", ans);
+				return 0;
+			}
 		}
-	}	
-
-
-	if(!overzero){
-		printf("=\n");
-		return 0;
 	}
 	
-	if(strlen(m1)<strlen(m2)){printf("<\n"); return 0;}
-	else if(strlen(m1)>strlen(m2)){printf(">\n"); return 0;}
-	else if(strlen(m1)==strlen(m2)){
-		for(int i=0; i<strlen(m1); ++i){
-			if(m1[i]>m2[i]){
-				printf(">\n");
-				return 0;
-			}
-			else if(m1[i]<m2[i]){
-				printf("<\n");
-				return 0;
-			}
-			else if(i==strlen(m1)-1){
-				printf("=\n");
-				return 0;
-			}
-		}
-	}
+	ans = c123+c223+c113+c134+c112+c413;
+	printf("%d\n", ans);
+	return 0;
 }
