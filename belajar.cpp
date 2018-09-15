@@ -15,7 +15,7 @@ int main(){
 	for (int i = 0; i < n; i++) {
 		int val = 0;
 		for (int j = 0; j < 32 && !val; j++) {
-			int tmp = cnt.find( (1ll<<j) - ar[i] )->second;
+			int tmp = cnt.count( (1ll<<j) - ar[i] );
 			if ( (1ll<<j) == ar[i] * 2 ) {
 				tmp--;
 			}
