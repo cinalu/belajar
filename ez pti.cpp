@@ -7,8 +7,8 @@ bool binser(int a[], int l, int r, int x){
 	if(r>=l){
 		int mid= (l+r)/2;
 		if(a[mid]==x) return true;
-		if(a[mid]<x) binser(a, mid+1, r, x);
-		if(a[mid]>x) binser(a, l, mid-1, x);
+		if(a[mid]<x) return binser(a, mid+1, r, x);
+		if(a[mid]>x) return binser(a, l, mid-1, x);
 	}
 	return false;
 }
