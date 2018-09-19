@@ -3,14 +3,14 @@ using namespace std;
 
 int a[100005];
 
-bool binser(int a[], int l, int r, int x){
+int binser(int a[], int l, int r, int x){
 	if(r>=l){
 		int mid= (l+r)/2;
-		if(a[mid]==x) return true;
+		if(a[mid]==x) return mid;
 		if(a[mid]<x) return binser(a, mid+1, r, x);
 		if(a[mid]>x) return binser(a, l, mid-1, x);
 	}
-	return false;
+	return -1;
 }
 
 int main(){
@@ -24,10 +24,10 @@ int main(){
 	
 	int ada=0;
 	for(int i=0; i<n; ++i){
-		int val = 0;
 		for(int j=0; j<32; ++j){
 			long long x = (1ll<<j)-a[i];
-			if(binser(a, 0, n-1, x)){
+			int index = binser(a, 0, n-1, x);
+			if(index > 0 && index != i){
 				++ada;
 			}
 		}
