@@ -26,10 +26,16 @@ int main(){
 	for(int i=0; i<n; ++i){
 		for(int j=0; j<32; ++j){
 			long long x = (1ll<<j)-a[i];
-			int index = binser(a, 0, n-1, x);
+			int index = binser(a, index + 1, n-1, x);
+			int found = 0;
 			if(index > 0 && index != i){
-				++ada;
+				found = 1;
 			}
+			index = binser(a, 0, index - 1, n-1, x);
+			if (index > 0 && index != i){
+				found = 1;
+			}
+			ada += found;
 		}
 	}
 	
